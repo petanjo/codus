@@ -49,6 +49,14 @@ describe Cjs::ViewHelpers do
     end
   end
 
+  describe "generate_conditional_function_calling_for_namespaces" do 
+    specify { helper.generate_conditional_function_calling_for_namespaces(["ns2", "ns4.ng5"]).should be == %Q{
+        if (cJS.isDefined("#{call_definition}")) {
+          cJS.call("#{call_definition}");
+        }
+      } 
+    }
+  end
   describe "merge_options_with_defaults" do 
     describe "default_values" do 
       specify { helper.merge_options_with_defaults({})[:app_name].should be == ""}
