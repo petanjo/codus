@@ -1,7 +1,7 @@
 module Cjs
   module ViewHelpers
     def javascript_ready(&block)
-      javascript_tag("$(function(){\n" + capture(&block) + "});")
+      javascript_tag("$(function(){\n" + capture(&block) + "});").html_safe
     end
 
     def load_cjs(options = {})
@@ -42,17 +42,24 @@ module Cjs
         conditional_callings.join("\n").html_safe
       end
 
-      onload_caller_javascript
+      onload_caller_javascript.html_safe
     end
 
     def merge_options_with_defaults(options)
-      { :app_name => "", 
+
+      default_options = { :app_name => "", 
         :onload_method_name => "",
         :method_names_mapper => {
           :create => :new,
           :update => :edit
         }
-      }.merge(options)
+      }
+      
+      mapping_options = options.delete(:method_names_mapper)
+
+      default_options[:method_names_mapper].merge!(mapping_options) unless mapping_options.nil?
+
+      default_options.merge(options)
     end
   end
 end

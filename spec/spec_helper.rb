@@ -3,7 +3,7 @@ require 'rubygems'
 require 'bundler/setup'
 require 'cjs' 
 require 'action_view'
-require 'active_support'
+require 'active_support/all'
 
 include ActionView::Helpers
 
