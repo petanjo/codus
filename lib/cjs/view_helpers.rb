@@ -59,6 +59,14 @@ module Cjs
       end
       namespaces
     end
+
+    def append_method_to_namespaces(namespaces, method_name = "")
+      return namespaces if method_name.nil? || method_name == ""
+      namespaces.map do |namespace_to_call_onload|
+        "#{namespace_to_call_onload}.#{method_name}"
+      end
+    end
+
     def merge_options_with_defaults(options)
       default_options = { :app_name => "", 
         :onload_method_name => "",

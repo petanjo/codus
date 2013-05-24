@@ -27,13 +27,26 @@ describe Cjs::ViewHelpers do
   describe "generate_onload_cjs_caller" do 
     specify do
       fullnamespace = "ns1.ns2.ns3"
-      helper.should_receive(:get_all_namespaces_from_full_namespace).with(fullnamespace).and_return(["ns1", "ns1.ns2", "ns1.ns2.ns3"])
+      namespaces_array = ["ns1", "ns1.ns2", "ns1.ns2.ns3"]
+      namespaces_array_with_method = ["ns1.load", "ns1.ns2.load", "ns1.ns2.ns3.load", "ns1.ns2.ns3.load"]
+      helper.should_receive(:get_all_namespaces_from_full_namespace).with(fullnamespace).and_return(namespaces_array)
+      helper.should_receive(:append_method_to_namespaces).and_return(namespaces_array_with_method)
       helper.generate_onload_cjs_caller(fullnamespace).should be == "<script>JAVASCRIPTDERETORNO</script>"
     end
   end
 
   describe "get_all_namespaces_from_full_namespace" do
     specify { helper.get_all_namespaces_from_full_namespace("ns1.ns2.ns3").should be == %w(ns1 ns1.ns2 ns1.ns2.ns3)}
+  end
+
+  describe "append_method_to_namespaces" do 
+    context "empty_method_name" do 
+      specify { helper.append_method_to_namespaces(["ns2", "ns4.ng5"]).should be == ["ns2", "ns4.ng5"] }
+    end
+
+    context "method_name_not_empty" do 
+      specify { helper.append_method_to_namespaces(["ns2", "ns4.ng5"], "method_name").should be == ["ns2.method_name", "ns4.ng5.method_name"] }
+    end
   end
 
   describe "merge_options_with_defaults" do 
