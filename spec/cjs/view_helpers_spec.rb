@@ -19,8 +19,21 @@ describe Cjs::ViewHelpers do
 
   describe "load_cjs" do 
     specify do
-      helper.load_cjs.should be == "<script type=\"text/javascript\">\n//<![CDATA[\n$(function(){\nCONTEUDO JAVASCRIPT});\n//]]>\n</script>"
+      helper.should_receive(:generate_onload_cjs_caller).with("app_teste.nomecontroller.nomeaction").and_return("<script>JAVASCRIPTDERETORNO</script>")
+      helper.load_cjs(:app_name => 'app_teste').should be == "<script>JAVASCRIPTDERETORNO</script>"
     end
+  end
+
+  describe "generate_onload_cjs_caller" do 
+    specify do
+      fullnamespace = "ns1.ns2.ns3"
+      helper.should_receive(:get_all_namespaces_from_full_namespace).with(fullnamespace).and_return(["ns1", "ns1.ns2", "ns1.ns2.ns3"])
+      helper.generate_onload_cjs_caller(fullnamespace).should be == "<script>JAVASCRIPTDERETORNO</script>"
+    end
+  end
+
+  describe "get_all_namespaces_from_full_namespace" do
+    specify { helper.get_all_namespaces_from_full_namespace("ns1.ns2.ns3").should be == %w(ns1 ns1.ns2 ns1.ns2.ns3)}
   end
 
   describe "merge_options_with_defaults" do 
