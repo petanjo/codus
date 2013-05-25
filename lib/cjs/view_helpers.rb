@@ -60,10 +60,20 @@ module Cjs
       namespaces
     end
 
-    def append_method_to_namespaces(namespaces, method_name = "")
+    def append_method_to_namespaces(namespaces = [], method_name = "")
       return namespaces if method_name.nil? || method_name == ""
       namespaces.map do |namespace_to_call_onload|
         "#{namespace_to_call_onload}.#{method_name}"
+      end
+    end
+
+    def generate_conditional_function_calling_for_namespaces(namespaces = [])
+      namespaces.map do |call_definition| 
+        "
+          if (cJS.isDefined(\"#{call_definition}\")) {
+            cJS.call(\"#{call_definition}\");
+          }
+        "
       end
     end
 
