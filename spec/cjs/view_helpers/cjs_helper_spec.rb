@@ -37,6 +37,11 @@ describe Cjs::ViewHelpers::CjsHelper::CjsOnloadCallGenerator do
 
   describe "get_all_namespaces_from_full_namespace" do
     specify { subject.get_all_namespaces_from_full_namespace.should be == %w(ns1 ns1.ns2 ns1.ns2.ns3)}
+
+    it "should return mapped ns names" do 
+      generator = Cjs::ViewHelpers::CjsHelper::CjsOnloadCallGenerator.new("ns2", "ns3", {:app_name => "ns1", :method_names_mapper => {:create => "novo"}})
+      
+    end
   end
 
   describe "append_method_to_namespaces" do 
