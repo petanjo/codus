@@ -1,7 +1,11 @@
 module Cjs
   module ViewHelpers
     module CjsHelper
-      
+      class CjsOnloadCallGenerator
+        def initialize(fullnamespace, options = {})
+        end
+      end
+
       def load_cjs(options = {})
         options_merged = merge_options_with_defaults(options)
         parent_namespace = "#{options_merged[:app_name]}.#{params[:controller].parameterize('.')}"
@@ -53,11 +57,8 @@ module Cjs
             :update => :edit
           }
         }
-        
         mapping_options = options.delete(:method_names_mapper)
-
-        default_options[:method_names_mapper].merge!(mapping_options) unless mapping_options.nil?
-
+        default_options[:method_names_mapper].merge!(mapping_options) unless mapping_options.nil? 
         default_options.merge(options)
       end
     end
