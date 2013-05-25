@@ -29,9 +29,13 @@ describe Cjs::ViewHelpers do
       fullnamespace = "ns1.ns2.ns3"
       namespaces_array = ["ns1", "ns1.ns2", "ns1.ns2.ns3"]
       namespaces_array_with_method = ["ns1.load", "ns1.ns2.load", "ns1.ns2.ns3.load", "ns1.ns2.ns3.load"]
+      conditional_callings = [
+          "\n          if (cJS.isDefined(\"ns2\")) {\n            cJS.call(\"ns2\");\n          }\n        ",
+          "\n          if (cJS.isDefined(\"ns4.ng5\")) {\n            cJS.call(\"ns4.ng5\");\n          }\n        "]
       helper.should_receive(:get_all_namespaces_from_full_namespace).with(fullnamespace).and_return(namespaces_array)
-      helper.should_receive(:append_method_to_namespaces).and_return(namespaces_array_with_method)
-      helper.generate_onload_cjs_caller(fullnamespace).should be == "<script>JAVASCRIPTDERETORNO</script>"
+      helper.should_receive(:append_method_to_namespaces).with(namespaces_array).and_return(namespaces_array_with_method)
+      helper.should_receive(:generate_conditional_function_calling_for_namespaces).with(namespaces_array_with_method).and_return(conditional_callings)
+      helper.generate_onload_cjs_caller(fullnamespace).should be == "<script type=\"text/javascript\">\n//<![CDATA[\n$(function(){\n\n          if (cJS.isDefined(&quot;ns2&quot;)) {\n            cJS.call(&quot;ns2&quot;);\n          }\n        \n\n          if (cJS.isDefined(&quot;ns4.ng5&quot;)) {\n            cJS.call(&quot;ns4.ng5&quot;);\n          }\n        });\n//]]>\n</script>"
     end
   end
 
@@ -55,7 +59,7 @@ describe Cjs::ViewHelpers do
           "\n          if (cJS.isDefined(\"ns4.ng5\")) {\n            cJS.call(\"ns4.ng5\");\n          }\n        "]
     end
   end
-  
+
   describe "merge_options_with_defaults" do 
     describe "default_values" do 
       specify { helper.merge_options_with_defaults({})[:app_name].should be == ""}
