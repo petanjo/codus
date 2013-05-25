@@ -1,3 +1,5 @@
+require "cjs/view_helpers/cjs_helper"
+
 module Cjs
   module ViewHelpers
     def javascript_ready(&block)
