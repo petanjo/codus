@@ -35,7 +35,7 @@ describe Cjs::ViewHelpers do
       helper.should_receive(:get_all_namespaces_from_full_namespace).with(fullnamespace).and_return(namespaces_array)
       helper.should_receive(:append_method_to_namespaces).with(namespaces_array).and_return(namespaces_array_with_method)
       helper.should_receive(:generate_conditional_function_calling_for_namespaces).with(namespaces_array_with_method).and_return(conditional_callings)
-      helper.generate_onload_cjs_caller(fullnamespace).should be == "<script type=\"text/javascript\">\n//<![CDATA[\n$(function(){\n\n          if (cJS.isDefined(&quot;ns2&quot;)) {\n            cJS.call(&quot;ns2&quot;);\n          }\n        \n\n          if (cJS.isDefined(&quot;ns4.ng5&quot;)) {\n            cJS.call(&quot;ns4.ng5&quot;);\n          }\n        });\n//]]>\n</script>"
+      helper.generate_onload_cjs_caller(fullnamespace).should be == "<script type=\"text/javascript\">\n//<![CDATA[\n$(function(){\n\n          if (cJS.isDefined(\"ns2\")) {\n            cJS.call(\"ns2\");\n          }\n        \n\n          if (cJS.isDefined(\"ns4.ng5\")) {\n            cJS.call(\"ns4.ng5\");\n          }\n        });\n//]]>\n</script>"
     end
   end
 
@@ -55,8 +55,9 @@ describe Cjs::ViewHelpers do
 
   describe "generate_conditional_function_calling_for_namespaces" do 
     specify do helper.generate_conditional_function_calling_for_namespaces(["ns2", "ns4.ng5"]).should be == [
-          "\n          if (cJS.isDefined(\"ns2\")) {\n            cJS.call(\"ns2\");\n          }\n        ",
-          "\n          if (cJS.isDefined(\"ns4.ng5\")) {\n            cJS.call(\"ns4.ng5\");\n          }\n        "]
+      "\n            if (cJS.isDefined(\"ns2\")) {\n              cJS.call(\"ns2\");\n            }\n          ", 
+      "\n            if (cJS.isDefined(\"ns4.ng5\")) {\n              cJS.call(\"ns4.ng5\");\n            }\n          "
+    ]
     end
   end
 
