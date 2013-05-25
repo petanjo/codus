@@ -29,7 +29,7 @@ describe Cjs::ViewHelpers::CjsHelper::CjsOnloadCallGenerator do
           "\n          if (cJS.isDefined(\"ns2\")) {\n            cJS.call(\"ns2\");\n          }\n        ",
           "\n          if (cJS.isDefined(\"ns4.ng5\")) {\n            cJS.call(\"ns4.ng5\");\n          }\n        "]
       subject.should_receive(:get_all_namespaces_from_full_namespace).and_return(namespaces_array)
-      subject.should_receive(:append_method_to_namespaces).with(namespaces_array).and_return(namespaces_array_with_method)
+      subject.should_receive(:append_onload_method_to_namespaces).with(namespaces_array).and_return(namespaces_array_with_method)
       subject.should_receive(:generate_conditional_function_calling_for_namespaces).with(namespaces_array_with_method).and_return(conditional_callings)
       subject.generate_cjs_calls.should be == "\n          if (cJS.isDefined(\"ns2\")) {\n            cJS.call(\"ns2\");\n          }\n        \n\n          if (cJS.isDefined(\"ns4.ng5\")) {\n            cJS.call(\"ns4.ng5\");\n          }\n        "
     end
@@ -39,18 +39,24 @@ describe Cjs::ViewHelpers::CjsHelper::CjsOnloadCallGenerator do
     specify { subject.get_all_namespaces_from_full_namespace.should be == %w(ns1 ns1.ns2 ns1.ns2.ns3)}
 
     it "should return mapped ns names" do 
-      generator = Cjs::ViewHelpers::CjsHelper::CjsOnloadCallGenerator.new("ns2", "ns3", {:app_name => "ns1", :method_names_mapper => {:create => "novo"}})
-      
+      generator = Cjs::ViewHelpers::CjsHelper::CjsOnloadCallGenerator.new("ns2", "create", {:app_name => "ns1", :method_names_mapper => {:create => "novo"}})
+      generator.get_all_namespaces_from_full_namespace().should be == %w(ns1 ns1.ns2 ns1.ns2.create ns1.ns2.novo)
+      generator = Cjs::ViewHelpers::CjsHelper::CjsOnloadCallGenerator.new("ns2", "edit", {:app_name => "ns1", :method_names_mapper => {:create => "novo"}})
+      generator.get_all_namespaces_from_full_namespace().should be == %w(ns1 ns1.ns2 ns1.ns2.edit)
+    
     end
   end
 
-  describe "append_method_to_namespaces" do 
-    context "empty_method_name" do 
-      specify { subject.append_method_to_namespaces(["ns2", "ns4.ng5"]).should be == ["ns2", "ns4.ng5"] }
+  describe "append_onload_method_to_namespaces" do 
+    context "empty method name" do 
+      specify { subject.append_onload_method_to_namespaces(["ns2", "ns4.ng5"]).should be == ["ns2", "ns4.ng5"] }
     end
 
-    context "method_name_not_empty" do 
-      specify { subject.append_method_to_namespaces(["ns2", "ns4.ng5"], "method_name").should be == ["ns2.method_name", "ns4.ng5.method_name"] }
+    context "method name not empty" do 
+      specify do 
+        subject.instance_eval { @options[:onload_method_name] = "onload_method"}
+        subject.append_onload_method_to_namespaces(["ns2", "ns4.ng5"]).should be == ["ns2.onload_method", "ns4.ng5.onload_method"] 
+      end
     end
   end
 

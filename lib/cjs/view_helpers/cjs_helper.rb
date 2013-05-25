@@ -25,11 +25,7 @@ module Cjs
 
         def generate_cjs_calls
           namespaces_to_call_onload = get_all_namespaces_from_full_namespace
-
-          if @options[:method_names_mapper].has_key?(@fullnamespace.split(".").last.to_sym)
-            namespaces_to_call_onload << ("#{@parent_namespace}.#{@options[:method_names_mapper][@last_namespace.to_sym]}")
-          end
-          onload_calls_definitions = append_method_to_namespaces(namespaces_to_call_onload)
+          onload_calls_definitions = append_onload_method_to_namespaces(namespaces_to_call_onload)
           conditional_callings = generate_conditional_function_calling_for_namespaces(onload_calls_definitions)
           conditional_callings.join("\n").html_safe
         end
@@ -43,13 +39,16 @@ module Cjs
               namespaces << ("#{namespaces.last}.#{actual_namespace}")
             end
           end
+          if @options[:method_names_mapper].has_key?(@fullnamespace.split(".").last.to_sym)
+            namespaces << ("#{@parent_namespace}.#{@options[:method_names_mapper][@last_namespace.to_sym]}")
+          end
           namespaces
         end
 
-        def append_method_to_namespaces(namespaces = [], method_name = "")
-          return namespaces if method_name.nil? || method_name == ""
+        def append_onload_method_to_namespaces(namespaces = [])
+          return namespaces if @options[:onload_method_name].nil? || @options[:onload_method_name] == ""
           namespaces.map do |namespace_to_call_onload|
-            "#{namespace_to_call_onload}.#{method_name}"
+            "#{namespace_to_call_onload}.#{@options[:onload_method_name]}"
           end
         end
 
