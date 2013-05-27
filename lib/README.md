@@ -8,7 +8,7 @@ Tools to improve your life as Rails developer.
 Javascript Organizer
 --------------------
 
-You can organize your javascript functions using cJS namespaces declaration and
+You can organize your javascript functions using yojs namespaces declaration and
 the ones that matches your application name, current controller and current
 action will automatic be fired.
 
@@ -26,15 +26,15 @@ gem 'codus'
 
 3. Put in your layout:
 
-`<%= load_cjs(:app_name => 'yourappname') %>`
+`<%= load_yojs(:app_name => 'yourappname') %>`
 
 4. Put in your application.js
 
 `//= require jquery`
 
-`//= require cjs`
+`//= require yojs`
 
-5. Declare your functions using cJS and enjoy your life
+5. Declare your functions using yojs and enjoy your life
 
 
 
@@ -44,8 +44,8 @@ gem 'codus'
 
 **app_name**
 
-The *load_cjs*** **helper method will print a javascript code, using query and
-cJS, that calls namespaces matching the app_name option, current controller name
+The *load_yojs*** **helper method will print a javascript code, using query and
+yojs, that calls namespaces matching the app_name option, current controller name
 and current action name.
 
 
@@ -71,7 +71,7 @@ the
 
 
 
-`<%= load_cjs(:app_name => 'yourappname', :onload_method_name =>
+`<%= load_yojs(:app_name => 'yourappname', :onload_method_name =>
 "myonloadmethod") %>`
 
 
@@ -95,7 +95,7 @@ instance:>
 
 
 
-`<%= load_cjs(:app_name => 'yourappname', `
+`<%= load_yojs(:app_name => 'yourappname', `
 
                     ` :method_names_mapper => {`
 

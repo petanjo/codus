@@ -1,7 +1,7 @@
 module Codus
   module ViewHelpers
-    module CjsHelper
-      class CjsCallGenerator
+    module YojsHelper
+      class YojsCallGenerator
         def initialize(controller, action, options = {})
           @options = merge_options_with_defaults(options)
           @parent_namespace = "#{@options[:app_name]}.#{controller.parameterize('.')}"
@@ -23,7 +23,7 @@ module Codus
           default_options.merge(options)
         end
 
-        def generate_cjs_calls
+        def generate_yojs_calls
           namespaces_to_call_onload = get_all_namespaces_from_full_namespace
           onload_calls_definitions = append_onload_method_to_namespaces(namespaces_to_call_onload)
           conditional_callings = generate_conditional_function_calling_for_namespaces(onload_calls_definitions)
@@ -55,8 +55,8 @@ module Codus
         def generate_conditional_function_calling_for_namespaces(namespaces = [])
           namespaces.map do |call_definition| 
             "
-              if (cJS.isDefined(\"#{call_definition}\")) {
-                cJS.call(\"#{call_definition}\");
+              if (yojs.isDefined(\"#{call_definition}\")) {
+                yojs.call(\"#{call_definition}\");
               }
             "
           end

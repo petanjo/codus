@@ -8,7 +8,7 @@ Tools to improve your life as Rails developer.
 Javascript Organizer
 --------------------
 
-You can organize your javascript functions using [cJS namespaces declaration](https://github.com/codus/cjs) and the ones that matches your application name, current controller and current action will automatic be fired.
+You can organize your javascript functions using [yojs namespaces declaration](https://github.com/codus/yojs) and the ones that matches your application name, current controller and current action will automatic be fired.
 
 
 
@@ -26,16 +26,16 @@ gem 'codus'
 
 - Put in your layout: 
 
-`<%= load_cjs(:app_name => 'yourappname') %>`
+`<%= load_yojs(:app_name => 'yourappname') %>`
 
 - Put in your application.js
 
 ```javascript
 //= require jquery
-//= require cjs
+//= require yojs
 ```
 
-- Declare your functions using cJS and enjoy your life
+- Declare your functions using yojs and enjoy your life
 
 
 
@@ -45,7 +45,7 @@ gem 'codus'
 
 ***app_name***
 
-The *load_cjs*** **helper method will print a javascript code, using query and cJS, that calls namespaces matching the app_name option, current controller name and current action name.
+The *load_yojs*** **helper method will print a javascript code, using query and yojs, that calls namespaces matching the app_name option, current controller name and current action name.
 
 
 
@@ -67,7 +67,7 @@ You can set the name of the last namespace to be called on the unload event with
 
 
 ```erb
-<%= load_cjs(:app_name => 'yourappname', :onload_method_name => "myonloadmethod") %>
+<%= load_yojs(:app_name => 'yourappname', :onload_method_name => "myonloadmethod") %>
 ```
 
 If you're in /posts/new it will call:
@@ -86,7 +86,7 @@ You can also configure equivalent namespaces using :<method_names_mapper. For in
 
 
 ```erb
-<%= load_cjs(:app_name => 'yourappname', 
+<%= load_yojs(:app_name => 'yourappname', 
 
                      :method_names_mapper => {
 

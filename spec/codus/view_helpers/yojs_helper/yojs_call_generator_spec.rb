@@ -1,19 +1,19 @@
 # encoding: utf-8
 require 'spec_helper'
 
-describe Codus::ViewHelpers::CjsHelper::CjsCallGenerator do 
-  subject { Codus::ViewHelpers::CjsHelper::CjsCallGenerator.new("ns2", "ns3", {:app_name => "ns1"}) }
-  describe "generate_cjs_calls" do 
+describe Codus::ViewHelpers::YojsHelper::YojsCallGenerator do 
+  subject { Codus::ViewHelpers::YojsHelper::YojsCallGenerator.new("ns2", "ns3", {:app_name => "ns1"}) }
+  describe "generate_yojs_calls" do 
     specify do
       namespaces_array = ["ns1", "ns1.ns2", "ns1.ns2.ns3"]
       namespaces_array_with_method = ["ns1.load", "ns1.ns2.load", "ns1.ns2.ns3.load", "ns1.ns2.ns3.load"]
       conditional_callings = [
-          "\n          if (cJS.isDefined(\"ns2\")) {\n            cJS.call(\"ns2\");\n          }\n        ",
-          "\n          if (cJS.isDefined(\"ns4.ng5\")) {\n            cJS.call(\"ns4.ng5\");\n          }\n        "]
+          "\n          if (yojs.isDefined(\"ns2\")) {\n            yojs.call(\"ns2\");\n          }\n        ",
+          "\n          if (yojs.isDefined(\"ns4.ng5\")) {\n            yojs.call(\"ns4.ng5\");\n          }\n        "]
       subject.should_receive(:get_all_namespaces_from_full_namespace).and_return(namespaces_array)
       subject.should_receive(:append_onload_method_to_namespaces).with(namespaces_array).and_return(namespaces_array_with_method)
       subject.should_receive(:generate_conditional_function_calling_for_namespaces).with(namespaces_array_with_method).and_return(conditional_callings)
-      subject.generate_cjs_calls.should be == "\n          if (cJS.isDefined(\"ns2\")) {\n            cJS.call(\"ns2\");\n          }\n        \n\n          if (cJS.isDefined(\"ns4.ng5\")) {\n            cJS.call(\"ns4.ng5\");\n          }\n        "
+      subject.generate_yojs_calls.should be == "\n          if (yojs.isDefined(\"ns2\")) {\n            yojs.call(\"ns2\");\n          }\n        \n\n          if (yojs.isDefined(\"ns4.ng5\")) {\n            yojs.call(\"ns4.ng5\");\n          }\n        "
     end
   end
 
@@ -21,9 +21,9 @@ describe Codus::ViewHelpers::CjsHelper::CjsCallGenerator do
     specify { subject.get_all_namespaces_from_full_namespace.should be == %w(ns1 ns1.ns2 ns1.ns2.ns3)}
 
     it "should return mapped ns names" do 
-      generator = Codus::ViewHelpers::CjsHelper::CjsCallGenerator.new("ns2", "create", {:app_name => "ns1", :method_names_mapper => {:create => "novo"}})
+      generator = Codus::ViewHelpers::YojsHelper::YojsCallGenerator.new("ns2", "create", {:app_name => "ns1", :method_names_mapper => {:create => "novo"}})
       generator.get_all_namespaces_from_full_namespace().should be == %w(ns1 ns1.ns2 ns1.ns2.create ns1.ns2.novo)
-      generator = Codus::ViewHelpers::CjsHelper::CjsCallGenerator.new("ns2", "edit", {:app_name => "ns1", :method_names_mapper => {:create => "novo"}})
+      generator = Codus::ViewHelpers::YojsHelper::YojsCallGenerator.new("ns2", "edit", {:app_name => "ns1", :method_names_mapper => {:create => "novo"}})
       generator.get_all_namespaces_from_full_namespace().should be == %w(ns1 ns1.ns2 ns1.ns2.edit)
     
     end
@@ -45,8 +45,8 @@ describe Codus::ViewHelpers::CjsHelper::CjsCallGenerator do
   describe "generate_conditional_function_calling_for_namespaces" do 
     specify do 
       subject.generate_conditional_function_calling_for_namespaces(["ns2", "ns4.ng5"]).should be == [
-        "\n              if (cJS.isDefined(\"ns2\")) {\n                cJS.call(\"ns2\");\n              }\n            ", 
-        "\n              if (cJS.isDefined(\"ns4.ng5\")) {\n                cJS.call(\"ns4.ng5\");\n              }\n            "
+        "\n              if (yojs.isDefined(\"ns2\")) {\n                yojs.call(\"ns2\");\n              }\n            ", 
+        "\n              if (yojs.isDefined(\"ns4.ng5\")) {\n                yojs.call(\"ns4.ng5\");\n              }\n            "
       ]
     end
   end
