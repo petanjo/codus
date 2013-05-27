@@ -113,6 +113,7 @@ File structure
 
 We recomend you to structure your js files according your namespace hierarchy. Example
 
+```
 - assets
   |- javascripts 
      |- application.js
@@ -134,4 +135,4 @@ We recomend you to structure your js files according your namespace hierarchy. E
      |  |- controllerN
      |  |  |- controllerN.js (javascripts shared between "myapp.controllerN" namespace)
      |  |  |- ...
- 
+``` 
