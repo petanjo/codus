@@ -66,7 +66,7 @@ For instance, if you're in /posts/new it will call:
 You can set the name of the last namespace to be called on the unload event with the *onload_method_name* option. For instance:
 
 
-```ruby
+```erb
 <%= load_cjs(:app_name => 'yourappname', :onload_method_name => "myonloadmethod") %>
 ```
 
@@ -85,7 +85,7 @@ You can also configure equivalent namespaces using :<method_names_mapper. For in
 
 
 
-```ruby
+```erb
 <%= load_cjs(:app_name => 'yourappname', 
 
                      :method_names_mapper => {
