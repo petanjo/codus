@@ -8,9 +8,7 @@ Tools to improve your life as Rails developer.
 Javascript Organizer
 --------------------
 
-You can organize your javascript functions using [yojs namespaces declaration](https://github.com/codus/yojs) and the ones that matches your application name, current controller and current action will automatic be fired.
-
-
+You can write your javascript functions using [yojs namespaces declaration](https://github.com/codus/yojs). Namespaces that matches your application name, current controller and current action will automatic be fired.
 
 ### Setup
 
