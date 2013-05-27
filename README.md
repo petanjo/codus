@@ -8,7 +8,7 @@ Tools to improve your life as Rails developer.
 Javascript Organizer
 --------------------
 
-You can organize your javascript functions using cJS namespaces declaration and the ones that matches your application name, current controller and current action will automatic be fired.
+You can organize your javascript functions using [cJS namespaces declaration](https://github.com/codus/cjs) and the ones that matches your application name, current controller and current action will automatic be fired.
 
 
 
