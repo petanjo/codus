@@ -99,11 +99,7 @@ You can also configure equivalent namespaces using :<method_names_mapper. For in
                     )%>
 ```
 
-
-
 If you're in /posts/create it will call:
-
-
 
 1. yourappname
 
@@ -112,3 +108,32 @@ If you're in /posts/create it will call:
 3. yourappname.posts.create
 
 4. yourappname.posts.new
+
+
+File structure
+--------------------
+
+We recomend you to structure your js files according your namespace hierarchy. Example
+
+- assets
+  |- javascripts 
+     |- application.js
+     |- components (jquery, plugins, etc)
+     |- myapp
+     |  |- myapp.js (global javascripts in "myapp" namespace)
+     |  |- controller1
+     |  |  |- controller1.js (javascripts shared between "myapp.controller1" namespace)
+     |  |  |- action1.js (javascripts for "myapp.controller1.action1" namespace)
+     |  |  |- action2.js (javascripts for "myapp.controller1.action2" namespace)
+     |  |  |- actionN.js (javascripts for "myapp.controller1.actionN" namespace)
+     |  |  
+     |  |- controller2
+     |  |  |- controller2.js (javascripts shared between "myapp.controller2" namespace)
+     |  |  |- action1.js (javascripts for "myapp.controller2.action1" namespace)
+     |  |  |- action2.js (javascripts for "myapp.controller2.action2" namespace)
+     |  |  |- actionN.js (javascripts for "myapp.controller2.actionN" namespace)
+     |  |  
+     |  |- controllerN
+     |  |  |- controllerN.js (javascripts shared between "myapp.controllerN" namespace)
+     |  |  |- ...
+ 
