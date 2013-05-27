@@ -44,7 +44,7 @@ gem 'codus'
 
 **app_name**
 
-The *load_yojs*** **helper method will print a javascript code, using query and
+The *load_yojs* helper method will print a javascript code, using query and
 yojs, that calls namespaces matching the app_name option, current controller name
 and current action name.
 
