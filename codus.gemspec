@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'cjs/version'
+require 'codus/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "cjs"
-  spec.version       = Cjs::VERSION
+  spec.name          = "codus"
+  spec.version       = Codus::VERSION
   spec.authors       = ["Vinícius Oyama"]
   spec.email         = ["vinicius.oyama@gmail.com"]
   spec.description   = %q{Create helper methods to organize your javascript files across namespaces matching your routes.}

@@ -1,4 +1,4 @@
-module Cjs
+module Codus
   module ViewHelpers
     module CjsHelper
       class CjsOnloadCallGenerator

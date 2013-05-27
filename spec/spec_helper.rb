@@ -1,7 +1,7 @@
 ENV["RAILS_ENV"] ||= 'test'
 require 'rubygems'
 require 'bundler/setup'
-require 'cjs' 
+require 'codus' 
 require 'action_view'
 require 'active_support/all'
 

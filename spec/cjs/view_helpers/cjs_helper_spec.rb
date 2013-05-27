@@ -1,9 +1,9 @@
 # encoding: utf-8
 require 'spec_helper'
 
-describe Cjs::ViewHelpers::CjsHelper do
+describe Codus::ViewHelpers::CjsHelper do
   let(:helper) { Class.new(ActionView::Base) do
-      include Cjs::ViewHelpers #need javascript_do
+      include Codus::ViewHelpers #need javascript_do
     end.new
   }
 
@@ -13,14 +13,14 @@ describe Cjs::ViewHelpers::CjsHelper do
     specify do
       generator_mock = mock()
       generator_mock.should_receive(:generate_cjs_calls).and_return("<script>JAVASCRIPTDERETORNO</script>")
-      Cjs::ViewHelpers::CjsHelper::CjsOnloadCallGenerator.should_receive(:new).with("nomecontroller", "nomeaction", {:app_name => 'app_teste'}).and_return(generator_mock)
+      Codus::ViewHelpers::CjsHelper::CjsOnloadCallGenerator.should_receive(:new).with("nomecontroller", "nomeaction", {:app_name => 'app_teste'}).and_return(generator_mock)
       helper.load_cjs(:app_name => 'app_teste').should be == "<script type=\"text/javascript\">\n//<![CDATA[\n$(function(){\n&lt;script&gt;JAVASCRIPTDERETORNO&lt;/script&gt;});\n//]]>\n</script>"
     end
   end
 end
 
-describe Cjs::ViewHelpers::CjsHelper::CjsOnloadCallGenerator do 
-  subject { Cjs::ViewHelpers::CjsHelper::CjsOnloadCallGenerator.new("ns2", "ns3", {:app_name => "ns1"}) }
+describe Codus::ViewHelpers::CjsHelper::CjsOnloadCallGenerator do 
+  subject { Codus::ViewHelpers::CjsHelper::CjsOnloadCallGenerator.new("ns2", "ns3", {:app_name => "ns1"}) }
   describe "generate_cjs_calls" do 
     specify do
       namespaces_array = ["ns1", "ns1.ns2", "ns1.ns2.ns3"]
@@ -39,9 +39,9 @@ describe Cjs::ViewHelpers::CjsHelper::CjsOnloadCallGenerator do
     specify { subject.get_all_namespaces_from_full_namespace.should be == %w(ns1 ns1.ns2 ns1.ns2.ns3)}
 
     it "should return mapped ns names" do 
-      generator = Cjs::ViewHelpers::CjsHelper::CjsOnloadCallGenerator.new("ns2", "create", {:app_name => "ns1", :method_names_mapper => {:create => "novo"}})
+      generator = Codus::ViewHelpers::CjsHelper::CjsOnloadCallGenerator.new("ns2", "create", {:app_name => "ns1", :method_names_mapper => {:create => "novo"}})
       generator.get_all_namespaces_from_full_namespace().should be == %w(ns1 ns1.ns2 ns1.ns2.create ns1.ns2.novo)
-      generator = Cjs::ViewHelpers::CjsHelper::CjsOnloadCallGenerator.new("ns2", "edit", {:app_name => "ns1", :method_names_mapper => {:create => "novo"}})
+      generator = Codus::ViewHelpers::CjsHelper::CjsOnloadCallGenerator.new("ns2", "edit", {:app_name => "ns1", :method_names_mapper => {:create => "novo"}})
       generator.get_all_namespaces_from_full_namespace().should be == %w(ns1 ns1.ns2 ns1.ns2.edit)
     
     end

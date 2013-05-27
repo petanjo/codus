@@ -1,8 +1,8 @@
-require "cjs/view_helpers/cjs_helper"
+require "codus/view_helpers/cjs_helper"
 
-module Cjs
+module Codus
   module ViewHelpers
-    include Cjs::ViewHelpers::CjsHelper
+    include Codus::ViewHelpers::CjsHelper
     
     def javascript_ready(&block)
       javascript_tag("$(function(){\n" + capture(&block) + "});").html_safe

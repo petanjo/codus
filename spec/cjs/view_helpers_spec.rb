@@ -1,9 +1,9 @@
 # encoding: utf-8
 require 'spec_helper'
 
-describe Cjs::ViewHelpers do
+describe Codus::ViewHelpers do
   let(:helper) { Class.new(ActionView::Base) do
-      include Cjs::ViewHelpers
+      include Codus::ViewHelpers
     end.new
   }
 
