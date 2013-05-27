@@ -7,8 +7,6 @@ describe Codus::ViewHelpers do
     end.new
   }
 
-  before(:each) { helper.stub!(:params).and_return({ :action => "nomeaction", :controller => "nomecontroller" }.with_indifferent_access) }
-
   describe "javascript_ready" do 
     specify do
       helper.javascript_ready do
