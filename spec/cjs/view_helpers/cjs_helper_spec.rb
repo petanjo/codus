@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe Codus::ViewHelpers::CjsHelper do
   let(:helper) { Class.new(ActionView::Base) do
-      include Codus::ViewHelpers::CjsHelper #need javascript_do
+      include Codus::ViewHelpers #need javascript_ready
     end.new
   }
 
