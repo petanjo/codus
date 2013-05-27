@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Codus::VERSION
   spec.authors       = ["Vinícius Oyama"]
   spec.email         = ["vinicius.oyama@gmail.com"]
-  spec.description   = %q{Create helper methods to organize your javascript files across namespaces matching your routes.}
-  spec.summary       = %q{Create helper methods to organize your javascript files across namespaces matching your routes.}
+  spec.description   = %q{Organize your javascript across namespaces matching your controllers and actions. Get automatic executing functions for current controller and action.}
+  spec.summary       = %q{Organize your javascript across namespaces matching your controllers and actions. Get automatic executing functions for current controller and action.}
   spec.summary       = ""
   spec.license       = "MIT"
 
