@@ -1,3 +1,6 @@
+// git@github.com:codus/cjs.git
+// Version: 0.0.1
+
 if(!Array.prototype.last) {
   Array.prototype.last = function() {
     return this[this.length - 1];
