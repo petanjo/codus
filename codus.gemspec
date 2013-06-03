@@ -5,12 +5,14 @@ require 'codus/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "codus"
-  spec.version       = Codus::VERSION
+  spec.version       = Codus::VERSION.freeze
   spec.authors       = ["Vinícius Oyama"]
   spec.email         = ["vinicius.oyama@gmail.com"]
   spec.description   = %q{Organize your javascript across namespaces matching your controllers and actions. Get automatic executing functions for current controller and action.}
   spec.summary       = %q{Organize your javascript across namespaces matching your controllers and actions. Get automatic executing functions for current controller and action.}
-  spec.summary       = ""
+  spec.authors          = ['Vinícius Oyama']
+  spec.email            = "vinicius.oyama@codus.com.br"
+  spec.homepage         = "https://github.com/codus/codus"
   spec.license       = "MIT"
 
   spec.files         = Dir["{lib,vendor}/**/*"] + ["README.md"]
