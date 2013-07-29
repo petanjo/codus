@@ -1,0 +1,3 @@
+[submodule "app/assets/javascript/yojs"]
+	path = app/assets/javascript/yojs
+	url = git@github.com:codus/yojs.git
