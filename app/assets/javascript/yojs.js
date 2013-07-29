@@ -1,1 +1,1 @@
-//= require yojs/yojs
+//= require ./yojs/yojs
