@@ -7,7 +7,7 @@ describe Codus::ViewHelpers do
     end.new
   }
 
-  describe "javascript_ready" do 
+  describe "javascript_ready" do
     specify do
       helper.javascript_ready do
         "CONTEUDO JAVASCRIPT"
@@ -15,4 +15,18 @@ describe Codus::ViewHelpers do
     end
   end
 
+  describe 'classes_for_scoped_css' do
+    specify do
+      helper.stub(:params).and_return({controller: 'controllername', action: 'actionname'})
+      helper.should_receive(:current_layout).and_return('layoutname')
+      helper.classes_for_scoped_css.should == "layoutname-layout controllername-controller actionname-action"
+    end
+  end
+
+  describe 'current_layout' do
+    specify do
+      helper.stub_chain(:controller, :send).and_return("layoutname")
+      helper.current_layout.should == "layoutname"
+    end
+  end
 end
