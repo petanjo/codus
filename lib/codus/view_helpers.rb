@@ -23,7 +23,7 @@ module Codus
       classes << "#{current_layout}-layout"
       classes << "#{params[:controller].parameterize('-')}-controller"
       classes << "#{params[:action].parameterize('-')}-action"
-      classes.join(" ")
+      classes.join(" ").gsub("_", "-")
     end
   end
 end

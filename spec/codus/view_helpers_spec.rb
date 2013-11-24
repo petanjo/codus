@@ -17,9 +17,9 @@ describe Codus::ViewHelpers do
 
   describe 'classes_for_scoped_css' do
     specify do
-      helper.stub(:params).and_return({controller: 'controllername', action: 'actionname'})
+      helper.stub(:params).and_return({controller: 'controller_name', action: 'actionname'})
       helper.should_receive(:current_layout).and_return('layoutname')
-      helper.classes_for_scoped_css.should == "layoutname-layout controllername-controller actionname-action"
+      helper.classes_for_scoped_css.should == "layoutname-layout controller-name-controller actionname-action"
     end
   end
 
