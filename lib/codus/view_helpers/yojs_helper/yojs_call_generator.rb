@@ -4,8 +4,8 @@ module Codus
       class YojsCallGenerator
         def initialize(controller, action, options = {})
           @options = merge_options_with_defaults(options)
-          @parent_namespace = "#{@options[:app_name]}.#{controller.parameterize('.')}"
-          @last_namespace = action.parameterize(".")
+          @parent_namespace = "#{@options[:app_name]}.#{controller.parameterize(separator: '.')}"
+          @last_namespace = action.parameterize(separator: '.')
           @fullnamespace = "#{@parent_namespace}.#{@last_namespace}"
           
         end
