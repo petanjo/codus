@@ -9,7 +9,7 @@ module Codus
     end
 
     def current_layout
-      layout = controller.send(:_layout)
+      layout = controller.send(:_layout, [])
 
       if layout.instance_of? String
         layout.split('/').last
