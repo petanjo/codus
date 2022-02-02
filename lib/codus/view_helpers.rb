@@ -21,8 +21,8 @@ module Codus
     def classes_for_scoped_css
       classes = []
       classes << "#{current_layout}-layout"
-      classes << "#{params[:controller].parameterize('-')}-controller"
-      classes << "#{params[:action].parameterize('-')}-action"
+      classes << "#{params[:controller].parameterize(separator: '-')}-controller"
+      classes << "#{params[:action].parameterize(separator: '-')}-action"
       classes.join(" ").gsub("_", "-")
     end
   end
